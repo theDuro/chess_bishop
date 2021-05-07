@@ -3,6 +3,7 @@ package pl.edu.pwsztar.planist;
 import pl.edu.pwsztar.domain.dto.FigureMoveDto;
 import pl.edu.pwsztar.domain.enums.FigureType;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +28,15 @@ public class ChesMovieChecker {
         put("8", 8);
 
     }};
+   private Point getPosition(String positionInString){
+       return new Point( chessMoveMap.get(positionInString.substring(0,1)), chessMoveMap.get(positionInString.substring(2,3)));
+   }
+
+   //do lekiej refraltoryzacji obejmuje narazie ruch samego gonica newet nie zwraca uwagi na figure
    public boolean itIsCorectMove(FigureMoveDto figureMoveDto){
-       int sousceX =  chessMoveMap.get(figureMoveDto.getSource().substring(0,1));
-       int destinationX = chessMoveMap.get(figureMoveDto.getDestination().substring(0,1));
-       int sousceY =  chessMoveMap.get(figureMoveDto.getSource().substring(2,3));
-       int destinationY = chessMoveMap.get(figureMoveDto.getDestination().substring(2,3));
-        System.out.println("dziłąm");
-       return sousceX-sousceY==destinationX-destinationY || destinationX+destinationY==sousceY+sousceY;
+       Point sousePositio = getPosition(figureMoveDto.getSource());
+       Point destiniPositio = getPosition(figureMoveDto.getSource());
+
+       return sousePositio.x- sousePositio.y==destiniPositio.x-destiniPositio.y ||  sousePositio.x+ sousePositio.y==destiniPositio.x+destiniPositio.y;
    }
 }

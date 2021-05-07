@@ -16,7 +16,7 @@ import pl.edu.pwsztar.planist.ChesMovieChecker;
 public class ChessApiController {
     private CheasFasade cheasFasade;
     public ChessApiController(CheasFasade cheasFasade){
-     this.cheasFasade=cheasFasade;
+  this.cheasFasade=cheasFasade;
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChessApiController.class);
@@ -25,14 +25,6 @@ public class ChessApiController {
     @PostMapping(value = "/chess/is-correct-move")
     public ResponseEntity<Boolean> isCorrectMove(@RequestBody FigureMoveDto figureMoveDto) {
         LOGGER.info("*** move details : {}", figureMoveDto);
-
-        // TODO: true = ruch dozwolony (figura moze przemiescic sie z punktu source do punktu destination)
-        // TODO: false = ruch zabroniony (figura nie moze przemiescic sie z punktu source do punktu destination)
-
-
-        ChesMovieChecker chesMovieChecker = new ChesMovieChecker();
-
-        LOGGER.info("POWINIENie ?????????????????????????????");
-        return ResponseEntity.ok(chesMovieChecker.itIsCorectMove(figureMoveDto));
+        return ResponseEntity.ok(cheasFasade.itsCorectMove(figureMoveDto));
     }
 }
